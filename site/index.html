@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olist : le client pardonne la lenteur, pas la date dépassée</title>
+    <meta name="description" content="Note d’analyse sur 96 470 commandes Olist : ce que coûte une date de livraison non tenue, et ce que la livraison ne change pas." />
+    <meta property="og:title" content="Olist : le client pardonne la lenteur, pas la date dépassée" />
+    <meta property="og:description" content="Note d’analyse sur 96 470 commandes Olist, avec le code et les données dérivées." />
+    <meta name="theme-color" content="#edf2f3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#note">Aller à la note</a>
+    <main id="note">
+      <header class="memo">
+        <p class="byline"><a href="https://ikel0.github.io/">Ikel Ouedraogo</a>, note d’analyse du <span data-k="generated_on" data-f="date">4 octobre 2026</span></p>
+        <h1>Olist : le client pardonne la lenteur, pas la date dépassée</h1>
+        <dl class="meta">
+          <div><dt>Données</dt><dd><span data-k="scope.delivered" data-f="int">96 470</span> commandes livrées par la marketplace brésilienne Olist, de septembre 2016 à août 2018</dd></div>
+          <div><dt>Question de départ</dt><dd>Pourquoi les clients ne reviennent presque jamais, et quel rôle joue la livraison ?</dd></div>
+          <div><dt>Code</dt><dd><a href="https://github.com/Ikel0/comptoir">github.com/Ikel0/comptoir</a>, rejouable avec <code>make all</code></dd></div>
+        </dl>
+      </header>
+
+      <p class="summary">La livraison n’explique pas le faible réachat. <span data-k="repeat.repeat_rate" data-f="pct">3,1&nbsp;%</span> des clients repassent commande dans les 180&nbsp;jours ; après une première commande en retard, c’est <span data-k="repeat.state_adjusted.late" data-f="pct2">2,61&nbsp;%</span> contre <span data-k="repeat.state_adjusted.on_time_standardised" data-f="pct2">3,05&nbsp;%</span> pour des clients des mêmes États livrés à l’heure, un écart qui reste dans le bruit (z = <span data-k="repeat.state_adjusted.z" data-f="n2">−1,56</span>). En revanche, la livraison fait la note, et ce n’est pas la durée qui compte : pour un colis reçu en 15 à 21&nbsp;jours, <span data-k="derived.bad_15_21_on_time" data-f="pct0">11&nbsp;%</span> des clients mettent 1 ou 2 étoiles si la date annoncée est tenue, <span data-k="derived.bad_15_21_late" data-f="pct0">43&nbsp;%</span> si elle est dépassée.</p>
+
+      <figure class="chart lead-chart" id="chart-promise" data-state="loading">
+        <figcaption><strong>Part des avis à 1 ou 2 étoiles, selon le délai réel et le respect de la date annoncée.</strong> Chaque ligne compare des colis livrés dans le même délai. Commandes livrées ayant un avis. Source : Olist (Kaggle), calcul de l’auteur.</figcaption>
+        <div class="plot" role="img" aria-label="Pour chaque tranche de délai réel, la part de mauvais avis est 2 à 5 fois plus élevée quand la date annoncée est dépassée."></div>
+        <p class="state">Chargement du graphique…</p>
+      </figure>
+
+      <h2>Ce que je propose</h2>
+
+      <h3>Envoyer le questionnaire après la livraison</h3>
+      <p>Olist envoie la demande d’avis à la date de livraison estimée, que le colis soit arrivé ou non. <span data-k="bad_reviews.reviewed_before_delivery" data-f="int">4 976</span> avis ont ainsi été déposés avant la livraison, à <span data-k="bad_reviews.late_rate_before_delivery" data-f="pct0">95&nbsp;%</span> pour des commandes en retard. Leur note moyenne est de <span data-k="bad_reviews.avg_score_before_delivery" data-f="n2">1,93</span> sur 5, contre <span data-k="bad_reviews.avg_score_after_delivery" data-f="n2">4,28</span> pour les autres. Ils représentent <span data-k="derived.bad_share_before_delivery" data-f="pct0">29&nbsp;%</span> des avis à 1 ou 2 étoiles (<span data-k="bad_reviews.bad_before_delivery" data-f="int">3 613</span> sur <span data-k="bad_reviews.bad" data-f="int">12 272</span>).</p>
+      <p>Ces notes jugent un colis absent, et elles comptent dans la note du vendeur. Or <span data-k="derived.late_share_seller_on_time" data-f="pct0">72&nbsp;%</span> des commandes en retard avaient été remises au transporteur dans les temps. Attendre la livraison confirmée, ou au minimum sortir ces avis de la note vendeur, évite de pénaliser un vendeur pour le travail du transporteur. Je ne peux pas chiffrer l’effet sur la note moyenne : on ignore ce que ces clients auraient noté une fois livrés.</p>
+
+      <h3>Rallonger la date annoncée sur 25 trajets</h3>
+      <p>En 2017, <span data-k="backtest.risky_routes.routes" data-f="int">25</span> trajets (État du vendeur vers État du client) ont dépassé 8&nbsp;% de commandes en retard. J’ai ajouté 5&nbsp;jours à la date d’Olist sur ces seuls trajets, puis appliqué la règle aux commandes de 2018, que je n’avais pas utilisées pour la régler.</p>
+      <div class="table-wrap">
+        <table>
+          <caption>Commandes livrées de janvier à août 2018 (<span data-k="backtest.policies.1.orders" data-f="int">51 983</span>). Les avis négatifs sont estimés à partir des taux de 2017.</caption>
+          <thead><tr><th scope="col">Date annoncée</th><th scope="col">Délai moyen annoncé</th><th scope="col">En retard</th><th scope="col">Avis 1-2 étoiles</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Celle d’Olist</th><td><span data-k="backtest.policies.1.olist_promise" data-f="n1">23,4</span> j</td><td><span data-k="backtest.policies.1.olist_late_rate" data-f="pct">7,8&nbsp;%</span></td><td><span data-k="backtest.policies.1.olist_bad_reviews" data-f="int">6 558</span></td></tr>
+            <tr class="chosen"><th scope="row">Olist + 5&nbsp;jours sur 25 trajets</th><td><span data-k="backtest.policies.1.new_promise" data-f="n1">24,4</span> j</td><td><span data-k="backtest.policies.1.new_late_rate" data-f="pct">6,9&nbsp;%</span></td><td><span data-k="backtest.policies.1.new_bad_reviews" data-f="int">6 376</span></td></tr>
+            <tr><th scope="row">Recalculée par trajet (quantile 93&nbsp;%)</th><td><span data-k="backtest.policies.0.new_promise" data-f="n1">23,1</span> j</td><td><span data-k="backtest.policies.0.new_late_rate" data-f="pct">7,7&nbsp;%</span></td><td><span data-k="backtest.policies.0.new_bad_reviews" data-f="int">6 618</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>La règle retire <span data-k="derived.risky_plus5_late_avoided_share" data-f="pct0">12&nbsp;%</span> des retards pour <span data-k="derived.risky_plus5_extra_days" data-f="n1">1,0</span> jour de plus en moyenne, soit environ <span data-k="derived.risky_plus5_bad_avoided" data-f="int">182</span> avis négatifs de moins sur huit mois (<span data-k="derived.risky_plus5_bad_avoided_share" data-f="pct">2,8&nbsp;%</span>). Le gain est modeste, et il a un coût que les données ne mesurent pas : une date plus lointaine peut faire renoncer à l’achat.</p>
+
+      <h2>Ce que je ne propose pas</h2>
+      <h3>Recalculer toutes les dates par trajet</h3>
+      <p>C’est la première idée, et elle ne marche pas : une date fixée au 93<sup>e</sup> centile des délais 2017 de chaque trajet donne <span data-k="backtest.policies.0.new_late_rate" data-f="pct">7,7&nbsp;%</span> de retards pour un délai annoncé presque identique, autant qu’Olist. En moyenne, la date d’Olist est déjà bien réglée ; elle se trompe au moment des pics, comme le montre le graphique suivant.</p>
+      <h3>Cibler d’abord les vendeurs</h3>
+      <p>Une commande en retard passe <span data-k="handover.carrier_days_late" data-f="n1">27,9</span> jours chez le transporteur, contre <span data-k="handover.carrier_days_on_time" data-f="n1">7,9</span> pour une commande à l’heure ; chez le vendeur, l’écart n’est que de <span data-k="handover.seller_days_on_time" data-f="n1">3,0</span> à <span data-k="handover.seller_days_late" data-f="n1">6,0</span> jours. Une remise tardive au transporteur fait bien passer le risque de retard de <span data-k="handover.late_rate_if_seller_on_time" data-f="pct0">5&nbsp;%</span> à <span data-k="handover.late_rate_if_seller_late" data-f="pct0">21&nbsp;%</span>, mais elle ne touche que <span data-k="handover.seller_late_orders" data-f="int">8 696</span> commandes. Les <span data-k="sellers.excess_sellers" data-f="int">48</span> vendeurs qui ont nettement plus de retards que leurs trajets ne l’expliquent pèsent <span data-k="sellers.excess_late" data-f="int">441</span> retards sur <span data-k="sellers.late_orders" data-f="int">6 547</span> (<span data-k="derived.excess_late_share" data-f="pct0">7&nbsp;%</span>). Une alerte se justifie, mais ce n’est pas le levier principal.</p>
+
+      <h2>La date annoncée réagit avec un mois de retard</h2>
+      <p>Au Black Friday de novembre 2017, les délais réels montent et la date annoncée ne bouge pas : <span data-k="monthly.10.late_rate" data-f="pct0">12&nbsp;%</span> de retards. Olist ne la rallonge qu’en décembre. En mars 2018, les délais montent de nouveau et la date est raccourcie : <span data-k="monthly.14.late_rate" data-f="pct0">19&nbsp;%</span> de retards. En juin, elle annonce <span data-k="monthly.17.promised_days" data-f="n0">28</span> jours pour <span data-k="monthly.17.actual_days" data-f="n0">9</span> jours réels.</p>
+      <p>J’ai testé une date qui suit les délais des livraisons des 14 derniers jours. Elle ramène mars 2018 à <span data-k="backtest.policies.2.march_late_rate" data-f="pct0">11&nbsp;%</span> de retards, mais sur l’ensemble de 2018 elle fait <span data-k="backtest.policies.2.new_late_rate" data-f="pct">7,9&nbsp;%</span>, pas mieux qu’Olist, pour <span data-k="backtest.policies.2.new_promise" data-f="n1">23,8</span> jours annoncés en moyenne : un retard ne se voit qu’une fois le colis livré, donc trop tard. Anticiper les pics à partir du calendrier commercial et du volume de commandes en cours serait la piste suivante.</p>
+
+      <figure class="chart" id="chart-monthly" data-state="loading">
+        <figcaption><strong>Délai annoncé et délai réel moyens, en jours, et part des commandes en retard, par mois d’achat.</strong> Mois complets de 2017 et 2018. Source : Olist (Kaggle), calcul de l’auteur.</figcaption>
+        <div class="plot" role="img" aria-label="Le délai annoncé reste entre 16 et 40&nbsp;jours, le délai réel entre 8 et 17&nbsp;jours. Les retards montent à 12&nbsp;% en novembre 2017 et 19&nbsp;% en mars 2018."></div>
+        <p class="state">Chargement du graphique…</p>
+      </figure>
+
+      <h2>Les trajets un par un</h2>
+      <p>Les <span data-k="routes.length" data-f="int">124</span> trajets avec au moins 30 commandes livrées par un seul vendeur. Délais en jours, médianes. En rouge, les trajets à plus de 12&nbsp;% de retards.</p>
+      <div class="explorer" id="routes" data-state="loading">
+        <label for="route-filter">État (sigle à deux lettres, par exemple RJ)</label>
+        <input id="route-filter" type="text" autocomplete="off" maxlength="2" />
+        <p class="state">Chargement des trajets…</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th scope="col"><button type="button" data-sort="route">Trajet</button></th>
+              <th scope="col"><button type="button" data-sort="orders">Commandes</button></th>
+              <th scope="col"><button type="button" data-sort="promised">Annoncé</button></th>
+              <th scope="col"><button type="button" data-sort="actual">Réel</button></th>
+              <th scope="col"><button type="button" data-sort="late_rate">En retard</button></th>
+              <th scope="col"><button type="button" data-sort="bad_rate">Avis 1-2 étoiles</button></th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2>Ce qui fausse les analyses d’Olist</h2>
+      <p>Ce jeu de données circule beaucoup, et certaines erreurs reviennent. Voici celles que j’ai dû traiter.</p>
+      <dl class="pitfalls">
+        <dt><code>customer_id</code> n’identifie pas un client.</dt>
+        <dd>Chacun des <span data-k="pitfalls.customer_ids" data-f="int">99 441</span> <code>customer_id</code> correspond à une seule commande : calculé dessus, le réachat vaut 0&nbsp;%. Le client est <code>customer_unique_id</code>, soit <span data-k="pitfalls.unique_customers" data-f="int">96 096</span> personnes.</dd>
+        <dt>Le réachat demande du recul.</dt>
+        <dd>Un client de juillet 2018 n’a pas eu le temps de revenir avant la fin des données. Le taux ne porte que sur les <span data-k="repeat.eligible_customers" data-f="int">55 784</span> clients dont la première commande laisse 180&nbsp;jours d’observation.</dd>
+        <dt>Certains mois sont presque vides.</dt>
+        <dd><span data-k="pitfalls.partial_months" data-f="int">5</span> mois ont moins de 400 commandes, fin 2016 et après août 2018. Une courbe qui les garde montre une chute qui n’existe pas.</dd>
+        <dt>Des avis sont en double.</dt>
+        <dd><span data-k="pitfalls.orders_with_several_reviews" data-f="int">547</span> commandes ont plusieurs avis et <span data-k="pitfalls.reviews_on_several_orders" data-f="int">789</span> avis couvrent plusieurs commandes. Je garde l’avis le plus récent de chaque commande.</dd>
+        <dt>Certaines dates sont impossibles.</dt>
+        <dd><span data-k="pitfalls.shipped_before_purchase" data-f="int">166</span> commandes partent chez le transporteur avant l’achat, <span data-k="pitfalls.delivered_before_shipped" data-f="int">23</span> arrivent avant d’être expédiées. Je les exclus de la comparaison vendeur / transporteur.</dd>
+        <dt>Le paiement ne colle pas toujours au panier.</dt>
+        <dd><span data-k="pitfalls.payment_mismatch" data-f="int">260</span> commandes ont un paiement qui diffère de plus de 5 centimes du prix des articles plus le port (bons d’achat, intérêts des paiements en plusieurs fois). Un test dbt alerte si ce nombre augmente.</dd>
+        <dt>Peu d’avis ont un texte.</dt>
+        <dd><span data-k="scope.reviewed_with_text" data-f="int">38 889</span> avis sur <span data-k="scope.reviewed" data-f="int">95 824</span> contiennent un commentaire. Une analyse des motifs d’insatisfaction ne porterait que sur eux.</dd>
+      </dl>
+
+      <h2>Limites et méthode</h2>
+      <p>Tout ce qui précède est corrélationnel. Le nombre d’avis évités suppose qu’une commande de 2018 se comporte comme les commandes de 2017 de même délai réel et de même statut par rapport à la date. Les commandes à plusieurs vendeurs (1,3&nbsp;%) sont exclues des calculs par trajet, car Olist ne date pas chaque colis.</p>
+      <p>Les CSV sont chargés dans DuckDB après vérification de l’empreinte de l’archive. dbt les type, les teste et construit les tables de faits, les dimensions et les tables d’analyse. Un script écrit tous les chiffres de cette page dans <a href="data/results.json">results.json</a>, et un test vérifie que le texte et ce fichier concordent. Les définitions des indicateurs sont dans <a href="https://github.com/Ikel0/comptoir/blob/main/METRICS.md">METRICS.md</a>.</p>
+
+      <footer>
+        <p>Données : <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce">Brazilian E-Commerce Public Dataset by Olist</a>, licence CC BY-NC-SA 4.0. Les données dérivées publiées ici suivent la même licence.</p>
+      </footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

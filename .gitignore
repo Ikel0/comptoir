@@ -1,5 +1,5 @@
 .venv/
-data/
+/data/
 target/
 logs/
 dbt_packages/
