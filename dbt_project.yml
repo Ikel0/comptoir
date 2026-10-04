@@ -1,0 +1,25 @@
+name: comptoir
+version: "1.0.0"
+profile: comptoir
+
+model-paths: ["models"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+
+models:
+  comptoir:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    marts:
+      +materialized: table
+      +schema: marts
+
+vars:
+  # Dernier achat livré de l'archive. Les commandes passées après n'ont pas été collectées
+  # comme livrées : un réachat après cette date serait invisible, d'où la fenêtre d'éligibilité.
+  data_end_date: "2018-08-29"
+  repeat_window_days: 180

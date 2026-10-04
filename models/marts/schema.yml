@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: Une ligne par commande. Montants en BRL, délais en jours calendaires.
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: customer_unique_id
+        tests:
+          - not_null
+          - relationships: {to: ref('dim_customers'), field: customer_unique_id}
+      - name: promised_days
+        description: Jours entre l'achat et la date de livraison estimée affichée au client.
+      - name: is_late
+        description: Livré après la date estimée (comparaison en jours).
+  - name: fct_order_items
+    columns:
+      - name: product_id
+        tests:
+          - relationships: {to: ref('dim_products'), field: product_id}
+  - name: dim_customers
+    columns:
+      - name: customer_unique_id
+        tests: [unique, not_null]
+  - name: dim_sellers
+    columns:
+      - name: seller_id
+        tests: [unique, not_null]
+  - name: dim_products
+    columns:
+      - name: product_id
+        tests: [unique, not_null]
+  - name: mart_first_orders
+    columns:
+      - name: customer_unique_id
+        tests: [unique, not_null]
+  - name: mart_seller_delivery
+    columns:
+      - name: seller_id
+        tests: [unique, not_null]
+  - name: mart_monthly
+    columns:
+      - name: month
+        tests: [unique, not_null]

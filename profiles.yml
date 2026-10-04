@@ -1,0 +1,7 @@
+comptoir:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: data/comptoir.duckdb
+      threads: 4
