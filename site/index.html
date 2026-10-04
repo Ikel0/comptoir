@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Olist : le client pardonne la lenteur, pas la date dépassée</title>
-    <meta name="description" content="Note d’analyse sur 96 470 commandes Olist : ce que coûte une date de livraison non tenue, et ce que la livraison ne change pas." />
-    <meta property="og:title" content="Olist : le client pardonne la lenteur, pas la date dépassée" />
+    <title>Olist : à délai égal, une date de livraison dépassée, c’est trois à quatre fois plus de mauvais avis</title>
+    <meta name="description" content="Note d’analyse sur 96 470 commandes Olist : le coût d’une date de livraison non tenue, et pourquoi la livraison n’explique pas le faible réachat." />
+    <meta property="og:title" content="Olist : à délai égal, une date de livraison dépassée, c’est trois à quatre fois plus de mauvais avis" />
     <meta property="og:description" content="Note d’analyse sur 96 470 commandes Olist, avec le code et les données dérivées." />
     <meta name="theme-color" content="#edf2f3" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,7 +18,7 @@
     <main id="note">
       <header class="memo">
         <p class="byline"><a href="https://ikel0.github.io/">Ikel Ouedraogo</a>, note d’analyse du <span data-k="generated_on" data-f="date">4 octobre 2026</span></p>
-        <h1>Olist : le client pardonne la lenteur, pas la date dépassée</h1>
+        <h1>Olist : à délai égal, une date de livraison dépassée, c’est trois à quatre fois plus de mauvais avis</h1>
         <dl class="meta">
           <div><dt>Données</dt><dd><span data-k="scope.delivered" data-f="int">96 470</span> commandes livrées par la marketplace brésilienne Olist, de septembre 2016 à août 2018</dd></div>
           <div><dt>Question de départ</dt><dd>Pourquoi les clients ne reviennent presque jamais, et quel rôle joue la livraison ?</dd></div>
@@ -26,11 +26,11 @@
         </dl>
       </header>
 
-      <p class="summary">La livraison n’explique pas le faible réachat. <span data-k="repeat.repeat_rate" data-f="pct">3,1&nbsp;%</span> des clients repassent commande dans les 180&nbsp;jours ; après une première commande en retard, c’est <span data-k="repeat.state_adjusted.late" data-f="pct2">2,61&nbsp;%</span> contre <span data-k="repeat.state_adjusted.on_time_standardised" data-f="pct2">3,05&nbsp;%</span> pour des clients des mêmes États livrés à l’heure, un écart qui reste dans le bruit (z = <span data-k="repeat.state_adjusted.z" data-f="n2">−1,56</span>). En revanche, la livraison fait la note, et ce n’est pas la durée qui compte : pour un colis reçu en 15 à 21&nbsp;jours, <span data-k="derived.bad_15_21_on_time" data-f="pct0">11&nbsp;%</span> des clients mettent 1 ou 2 étoiles si la date annoncée est tenue, <span data-k="derived.bad_15_21_late" data-f="pct0">43&nbsp;%</span> si elle est dépassée.</p>
+      <p class="summary">La livraison n’explique pas le faible réachat : même livrés à l’heure, seuls <span data-k="repeat.repeat_if_on_time" data-f="pct2">3,14&nbsp;%</span> des clients repassent commande dans les 180 jours. Après une première commande en retard, c’est <span data-k="repeat.state_adjusted.late" data-f="pct2">2,61&nbsp;%</span>, contre <span data-k="repeat.state_adjusted.on_time_standardised" data-f="pct2">3,05&nbsp;%</span> pour des clients des mêmes États livrés à l’heure : un écart qui reste dans le bruit (z = <span data-k="repeat.state_adjusted.z" data-f="n2">−1,56</span>). En revanche, la livraison fait la note, et la date compte plus que la durée : pour un colis reçu en 15 à 21&nbsp;jours, <span data-k="derived.bad_15_21_on_time" data-f="pct0">11&nbsp;%</span> des clients mettent 1 ou 2 étoiles si la date annoncée est tenue, <span data-k="derived.bad_15_21_late" data-f="pct0">43&nbsp;%</span> si elle est dépassée.</p>
 
       <figure class="chart lead-chart" id="chart-promise" data-state="loading">
-        <figcaption><strong>Part des avis à 1 ou 2 étoiles, selon le délai réel et le respect de la date annoncée.</strong> Chaque ligne compare des colis livrés dans le même délai. Commandes livrées ayant un avis. Source : Olist (Kaggle), calcul de l’auteur.</figcaption>
-        <div class="plot" role="img" aria-label="Pour chaque tranche de délai réel, la part de mauvais avis est 2 à 5 fois plus élevée quand la date annoncée est dépassée."></div>
+        <figcaption><strong>Part des avis à 1 ou 2 étoiles, selon le délai réel et le respect de la date annoncée.</strong> Chaque ligne compare des colis livrés dans le même délai. Au-delà de 7 jours, la part de mauvais avis est <span data-k="derived.late_vs_on_time_ratio_min" data-f="n1">3,2</span> à <span data-k="derived.late_vs_on_time_ratio_max" data-f="n1">3,9</span> fois plus élevée quand la date est dépassée ; elle augmente aussi avec le délai quand la date est tenue. Commandes livrées ayant un avis. Source : Olist (Kaggle), calcul de l’auteur.</figcaption>
+        <div class="plot" role="img" aria-label="Pour chaque tranche de délai réel, la part de mauvais avis est nettement plus élevée quand la date annoncée est dépassée. Elle augmente aussi avec le délai, même quand la date est tenue."></div>
         <p class="state">Chargement du graphique…</p>
       </figure>
 

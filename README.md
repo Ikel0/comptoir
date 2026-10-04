@@ -1,6 +1,6 @@
 # Comptoir
 
-Étude analytics de bout en bout sur 96 470 commandes de la marketplace brésilienne Olist (2016-2018) : ce que coûte une date de livraison non tenue, et ce que la livraison ne change pas.
+Étude analytics de bout en bout sur 96 470 commandes de la marketplace brésilienne Olist (2016-2018) : le coût d'une date de livraison non tenue, et pourquoi la livraison n'explique pas le faible réachat.
 
 Étude en ligne : https://ikel0.github.io/comptoir/
 

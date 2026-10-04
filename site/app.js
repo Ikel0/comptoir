@@ -4,10 +4,9 @@
 
 const NS = 'http://www.w3.org/2000/svg';
 const NBSP = '\u00a0';
-const THIN = '\u00a0';
 
 function group(intString) {
-  return intString.replace(/\B(?=(\d{3})+(?!\d))/g, THIN);
+  return intString.replace(/\B(?=(\d{3})+(?!\d))/g, NBSP);
 }
 
 function fixed(value, digits) {

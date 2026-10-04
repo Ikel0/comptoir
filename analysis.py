@@ -266,7 +266,16 @@ results["pitfalls"] = one("""
 # Chiffres dérivés cités dans l'étude, calculés ici plutôt qu'à la main.
 h, b, bt = results["handover"], results["bad_reviews"], results["backtest"]["policies"]
 by_bucket = {(r["bucket"], r["is_late"]): r["bad_rate"] for r in results["delay_vs_promise"]}
+# Rapport « date dépassée / date tenue » des mauvais avis, sur les tranches de délai qui
+# comptent au moins 100 commandes en retard (la tranche 0-7 j n'en a que 74).
+ratios = [
+    late["bad_rate"] / on_time["bad_rate"]
+    for late in results["delay_vs_promise"] if late["is_late"] and late["orders"] >= 100
+    for on_time in results["delay_vs_promise"] if not on_time["is_late"] and on_time["bucket"] == late["bucket"]
+]
 results["derived"] = {
+    "late_vs_on_time_ratio_min": round(min(ratios), 1),
+    "late_vs_on_time_ratio_max": round(max(ratios), 1),
     "late_share_seller_on_time": round(h["late_with_seller_on_time"] / h["late_orders"], 4),
     "bad_share_before_delivery": round(b["bad_before_delivery"] / b["bad"], 4),
     "bad_15_21_on_time": by_bucket[("15-21", False)],
