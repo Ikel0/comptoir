@@ -53,6 +53,12 @@ def main() -> int:
         expected = FORMATS[fmt](lookup(data, key))
         if normalise(shown) != normalise(expected):
             errors.append(f"{key} : la page affiche « {shown} », les données donnent « {expected} »")
+    # La mention « mise à jour le … » n'a de sens que si les chiffres ont changé depuis la
+    # publication : elle doit être là si et seulement si les deux dates diffèrent.
+    has_update = 'class="updated"' in page
+    if has_update != (data["generated_on"] != data["published_on"]):
+        errors.append("mise à jour : la page " + ("l'affiche" if has_update else "ne l'affiche pas")
+                      + f", publiée le {data['published_on']}, chiffres du {data['generated_on']}")
     for error in errors:
         print(error)
     print(f"{count} chiffres vérifiés, {len(errors)} écart(s)")

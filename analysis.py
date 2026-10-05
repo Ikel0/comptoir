@@ -11,6 +11,9 @@ import duckdb
 
 ROOT = Path(__file__).parent
 OUT = ROOT / "site" / "data" / "results.json"
+# Date de publication de la note, fixe. generated_on est la date du dernier calcul qui a
+# changé un chiffre ; la page n'affiche « mise à jour le … » que si les deux diffèrent.
+PUBLISHED_ON = "2026-10-04"
 con = duckdb.connect(str(ROOT / "data" / "comptoir.duckdb"), read_only=True)
 
 
@@ -317,6 +320,7 @@ assert five["new_promise"] == bt[1]["new_promise"] and five["new_late_rate"] == 
 # La date de la note ne change que si un chiffre change : rejouer l'analyse en CI un autre
 # jour doit redonner exactement le même fichier, sinon check_numbers.py échoue sur la date.
 previous = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
+results = {"published_on": PUBLISHED_ON, **results}
 unchanged = json.loads(json.dumps(results, default=str)) == {k: v for k, v in previous.items() if k != "generated_on"}
 results = {"generated_on": previous["generated_on"] if unchanged and "generated_on" in previous
            else date.today().isoformat(), **results}
