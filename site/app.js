@@ -116,7 +116,8 @@ function drawMonthly(months, W) {
     bars.forEach((bar, k) => bar.classList.toggle('active', k === i));
     if (i < 0) return;
     const m = months[i];
-    guide.append(svg('line', { x1: x(i), x2: x(i), y1: top, y2: barTop + barH }));
+    // Le repère s'arrête au-dessus des barres pour ne pas barrer l'étiquette des pics.
+    guide.append(svg('line', { x1: x(i), x2: x(i), y1: top, y2: top + lineH }));
     guide.append(svg('circle', { cx: x(i), cy: y(m.promised_days), r: 4, fill: css('--paper'), stroke: css('--muted'), 'stroke-width': 2 }));
     guide.append(svg('circle', { cx: x(i), cy: y(m.actual_days), r: 4, fill: css('--ink') }));
   };
