@@ -17,7 +17,7 @@
     <a class="skip-link" href="#note">Aller à la note</a>
     <main id="note">
       <header class="memo">
-        <p class="byline"><a href="https://ikel0.github.io/">Ikel Ouedraogo</a>, note d’analyse du <span data-k="generated_on" data-f="date">4 octobre 2026</span></p>
+        <p class="byline"><a href="https://ikel0.github.io/">Ikel Ouedraogo</a>, note d’analyse du <span data-k="generated_on" data-f="date">5 octobre 2026</span></p>
         <h1>Olist : à délai égal, une date de livraison dépassée, c’est trois à quatre fois plus de mauvais avis</h1>
         <dl class="meta">
           <div><dt>Données</dt><dd><span data-k="scope.delivered" data-f="int">96 470</span> commandes livrées par la marketplace brésilienne Olist, de septembre 2016 à août 2018</dd></div>
@@ -54,6 +54,19 @@
         </table>
       </div>
       <p>La règle retire <span data-k="derived.risky_plus5_late_avoided_share" data-f="pct0">12&nbsp;%</span> des retards pour <span data-k="derived.risky_plus5_extra_days" data-f="n1">1,0</span> jour de plus en moyenne, soit environ <span data-k="derived.risky_plus5_bad_avoided" data-f="int">182</span> avis négatifs de moins sur huit mois (<span data-k="derived.risky_plus5_bad_avoided_share" data-f="pct">2,8&nbsp;%</span>). Le gain est modeste, et il a un coût que les données ne mesurent pas : une date plus lointaine peut faire renoncer à l’achat.</p>
+
+      <figure class="chart" id="chart-margin" data-state="loading">
+        <figcaption><strong>Figure 3. Part des retards de 2018 retirés selon la marge ajoutée à la date d’Olist sur les <span data-k="backtest.risky_routes.routes" data-f="int">25</span> trajets à risque.</strong> Même règle et mêmes <span data-k="backtest.policies.1.orders" data-f="int">51 983</span> commandes que le tableau, recalculées pour chaque marge de 0 à 10&nbsp;jours ; le curseur ne propose que ces valeurs calculées. Source : Olist (Kaggle), calcul de l’auteur.</figcaption>
+        <div class="margin-control">
+          <label for="margin">Marge ajoutée</label>
+          <input id="margin" type="range" min="0" max="10" step="1" value="5" aria-describedby="margin-readout" />
+          <output for="margin" id="margin-value">5 jours</output>
+          <button type="button" id="margin-reset">Revenir à 5 jours</button>
+        </div>
+        <p class="readout" id="margin-readout" aria-live="polite"><span class="which">Avec 5&nbsp;jours, la règle retenue ci-dessus</span> : <span data-k="backtest.margins.5.late_avoided_share" data-f="pct0">12&nbsp;%</span> des retards retirés (<span data-k="backtest.margins.5.new_late_rate" data-f="pct">6,9&nbsp;%</span> de commandes en retard au lieu de <span data-k="backtest.policies.1.olist_late_rate" data-f="pct">7,8&nbsp;%</span>), pour un délai annoncé moyen de <span data-k="backtest.margins.5.new_promise" data-f="n1">24,4</span> jours au lieu de <span data-k="backtest.policies.1.olist_promise" data-f="n1">23,4</span>.</p>
+        <div class="plot" aria-hidden="true"></div>
+        <p class="state">Chargement du graphique…</p>
+      </figure>
 
       <h2>Ce que je ne propose pas</h2>
       <h3>Recalculer toutes les dates par trajet</h3>

@@ -33,7 +33,7 @@ BUCKET = """case when actual_days <= 7 then '0-7' when actual_days <= 14 then '8
 
 con.execute(f"create temp table d as select *, {BUCKET} as bucket {DELIVERED}")
 
-results = {"generated_on": date.today().isoformat()}
+results = {}
 
 results["scope"] = one("""
     select (select count(*) from marts.fct_orders) as orders,
@@ -139,7 +139,7 @@ results["routes"] = rows("""
            round(p90_actual_days, 0) as p90_actual, round(late_rate, 4) as late_rate,
            round(bad_review_rate, 4) as bad_rate
     from marts.mart_delivery_promise
-    order by orders desc
+    order by orders desc, route
 """)
 
 
@@ -182,13 +182,35 @@ def evaluate(policy: str, new_promise_sql: str) -> dict:
     return r
 
 
+RISKY = "n >= 30 and late_rate > 0.08"
+
+
+def plus_margin(days: int) -> str:
+    return f"promised_days + case when {RISKY} then {days} else 0 end"
+
+
 results["backtest"] = {
-    "risky_routes": one("select count(*) as routes, sum(n) as orders_2017 from route_2017 where n >= 30 and late_rate > 0.08"),
+    "risky_routes": one(f"select count(*) as routes, sum(n) as orders_2017 from route_2017 where {RISKY}"),
     "policies": [
         evaluate("route_q93", f"ceil(case when n >= 30 then q93 else {global_q93} end)"),
-        evaluate("risky_routes_plus_5", "promised_days + case when n >= 30 and late_rate > 0.08 then 5 else 0 end"),
+        evaluate("risky_routes_plus_5", plus_margin(5)),
     ],
 }
+
+# Grille lue par la figure 3 : la même règle avec une marge de 0 à 10 jours. La page ne
+# propose que ces valeurs ; elle n'interpole rien.
+margins = []
+for days in range(11):
+    r = evaluate(f"risky_routes_plus_{days}", plus_margin(days))
+    margins.append({
+        "margin": days,
+        "new_promise": r["new_promise"],
+        "extra_days": round(r["new_promise"] - r["olist_promise"], 2),
+        "new_late_rate": r["new_late_rate"],
+        "late_avoided_share": round(1 - r["new_late_rate"] / r["olist_late_rate"], 4),
+        "new_bad_reviews": r["new_bad_reviews"],
+    })
+results["backtest"]["margins"] = margins
 
 # Date « glissante » : quantile 93 % des délais des commandes livrées dans les 14 jours
 # précédant l'achat (par État client si au moins 50 livraisons, sinon global). Seules les
@@ -286,6 +308,18 @@ results["derived"] = {
     "risky_plus5_bad_avoided_share": round((bt[1]["olist_bad_reviews"] - bt[1]["new_bad_reviews"]) / bt[1]["olist_bad_reviews"], 4),
     "risky_plus5_late_avoided_share": round(1 - bt[1]["new_late_rate"] / bt[1]["olist_late_rate"], 4),
 }
+
+# La 5e marge de la grille est la règle citée dans le texte : les deux doivent coïncider.
+five = results["backtest"]["margins"][5]
+assert five["late_avoided_share"] == results["derived"]["risky_plus5_late_avoided_share"]
+assert five["new_promise"] == bt[1]["new_promise"] and five["new_late_rate"] == bt[1]["new_late_rate"]
+
+# La date de la note ne change que si un chiffre change : rejouer l'analyse en CI un autre
+# jour doit redonner exactement le même fichier, sinon check_numbers.py échoue sur la date.
+previous = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
+unchanged = json.loads(json.dumps(results, default=str)) == {k: v for k, v in previous.items() if k != "generated_on"}
+results = {"generated_on": previous["generated_on"] if unchanged and "generated_on" in previous
+           else date.today().isoformat(), **results}
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(results, ensure_ascii=False, indent=1, default=str), encoding="utf-8")

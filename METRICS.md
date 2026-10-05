@@ -62,6 +62,14 @@ Couple État du vendeur, État du client. Seules les commandes à un seul vendeu
 
 Modèle : `mart_delivery_promise`.
 
+## Marge sur les trajets à risque
+
+Jours ajoutés à la date d'Olist sur les trajets qui ont dépassé 8 % de retards en 2017 (au moins 30 commandes), appliqués aux commandes livrées de 2018. Part des retards retirés = 1 − taux de retard avec la marge / taux de retard d'Olist.
+
+Grain : marge (0 à 10 jours). Calcul : `analysis.py` (`backtest.margins`), recalculé indépendamment par `test_backtest.py`.
+
+Piège : la page ne propose que ces 11 marges. Une valeur entre deux marges serait une interpolation, pas un calcul.
+
 ## Remise tardive du vendeur
 
 Commande remise au transporteur après la date limite d'expédition fixée au vendeur (`shipping_limit_date`, maximum sur les articles de la commande).

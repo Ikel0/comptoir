@@ -1,5 +1,5 @@
 {
- "generated_on": "2026-10-04",
+ "generated_on": "2026-10-05",
  "scope": {
   "orders": 99441,
   "delivered": 96470,
@@ -551,15 +551,6 @@
    "bad_rate": 0.0945
   },
   {
-   "route": "MG → PR",
-   "orders": 362,
-   "promised": 27.0,
-   "actual": 12.0,
-   "p90_actual": 19.0,
-   "late_rate": 0.011,
-   "bad_rate": 0.0776
-  },
-  {
    "route": "MG → BA",
    "orders": 362,
    "promised": 28.0,
@@ -567,6 +558,15 @@
    "p90_actual": 28.0,
    "late_rate": 0.0994,
    "bad_rate": 0.1278
+  },
+  {
+   "route": "MG → PR",
+   "orders": 362,
+   "promised": 27.0,
+   "actual": 12.0,
+   "p90_actual": 19.0,
+   "late_rate": 0.011,
+   "bad_rate": 0.0776
   },
   {
    "route": "SP → PB",
@@ -785,15 +785,6 @@
    "bad_rate": 0.0809
   },
   {
-   "route": "RJ → BA",
-   "orders": 135,
-   "promised": 27.0,
-   "actual": 14.0,
-   "p90_actual": 24.0,
-   "late_rate": 0.1111,
-   "bad_rate": 0.1128
-  },
-  {
    "route": "BA → SP",
    "orders": 135,
    "promised": 23.0,
@@ -801,6 +792,15 @@
    "p90_actual": 18.0,
    "late_rate": 0.037,
    "bad_rate": 0.1037
+  },
+  {
+   "route": "RJ → BA",
+   "orders": 135,
+   "promised": 27.0,
+   "actual": 14.0,
+   "p90_actual": 24.0,
+   "late_rate": 0.1111,
+   "bad_rate": 0.1128
   },
   {
    "route": "GO → SP",
@@ -911,15 +911,6 @@
    "bad_rate": 0.0515
   },
   {
-   "route": "RJ → DF",
-   "orders": 96,
-   "promised": 26.0,
-   "actual": 11.0,
-   "p90_actual": 25.0,
-   "late_rate": 0.0833,
-   "bad_rate": 0.1146
-  },
-  {
    "route": "DF → RJ",
    "orders": 96,
    "promised": 28.0,
@@ -927,6 +918,15 @@
    "p90_actual": 21.0,
    "late_rate": 0.0729,
    "bad_rate": 0.2211
+  },
+  {
+   "route": "RJ → DF",
+   "orders": 96,
+   "promised": 26.0,
+   "actual": 11.0,
+   "p90_actual": 25.0,
+   "late_rate": 0.0833,
+   "bad_rate": 0.1146
   },
   {
    "route": "RJ → PE",
@@ -965,15 +965,6 @@
    "bad_rate": 0.122
   },
   {
-   "route": "MG → PA",
-   "orders": 83,
-   "promised": 37.0,
-   "actual": 24.0,
-   "p90_actual": 38.0,
-   "late_rate": 0.1084,
-   "bad_rate": 0.15
-  },
-  {
    "route": "GO → MG",
    "orders": 83,
    "promised": 26.0,
@@ -981,6 +972,15 @@
    "p90_actual": 18.0,
    "late_rate": 0.0,
    "bad_rate": 0.0843
+  },
+  {
+   "route": "MG → PA",
+   "orders": 83,
+   "promised": 37.0,
+   "actual": 24.0,
+   "p90_actual": 38.0,
+   "late_rate": 0.1084,
+   "bad_rate": 0.15
   },
   {
    "route": "SC → BA",
@@ -1037,15 +1037,6 @@
    "bad_rate": 0.1148
   },
   {
-   "route": "PE → MG",
-   "orders": 60,
-   "promised": 29.5,
-   "actual": 11.0,
-   "p90_actual": 18.0,
-   "late_rate": 0.0,
-   "bad_rate": 0.1167
-  },
-  {
    "route": "MG → MA",
    "orders": 60,
    "promised": 31.0,
@@ -1053,6 +1044,15 @@
    "p90_actual": 30.0,
    "late_rate": 0.15,
    "bad_rate": 0.0847
+  },
+  {
+   "route": "PE → MG",
+   "orders": 60,
+   "promised": 29.5,
+   "actual": 11.0,
+   "p90_actual": 18.0,
+   "late_rate": 0.0,
+   "bad_rate": 0.1167
   },
   {
    "route": "ES → RJ",
@@ -1100,15 +1100,6 @@
    "bad_rate": 0.0926
   },
   {
-   "route": "SC → GO",
-   "orders": 54,
-   "promised": 31.0,
-   "actual": 15.0,
-   "p90_actual": 25.0,
-   "late_rate": 0.0556,
-   "bad_rate": 0.0741
-  },
-  {
    "route": "RJ → CE",
    "orders": 54,
    "promised": 31.0,
@@ -1116,6 +1107,15 @@
    "p90_actual": 37.0,
    "late_rate": 0.2037,
    "bad_rate": 0.2407
+  },
+  {
+   "route": "SC → GO",
+   "orders": 54,
+   "promised": 31.0,
+   "actual": 15.0,
+   "p90_actual": 25.0,
+   "late_rate": 0.0556,
+   "bad_rate": 0.0741
   },
   {
    "route": "PR → PA",
@@ -1271,15 +1271,6 @@
    "bad_rate": 0.1429
   },
   {
-   "route": "MG → AL",
-   "orders": 35,
-   "promised": 31.0,
-   "actual": 20.0,
-   "p90_actual": 35.0,
-   "late_rate": 0.1714,
-   "bad_rate": 0.1471
-  },
-  {
    "route": "DF → BA",
    "orders": 35,
    "promised": 29.0,
@@ -1287,6 +1278,15 @@
    "p90_actual": 23.0,
    "late_rate": 0.0571,
    "bad_rate": 0.1714
+  },
+  {
+   "route": "MG → AL",
+   "orders": 35,
+   "promised": 31.0,
+   "actual": 20.0,
+   "p90_actual": 35.0,
+   "late_rate": 0.1714,
+   "bad_rate": 0.1471
   },
   {
    "route": "PR → AL",
@@ -1307,15 +1307,6 @@
    "bad_rate": 0.1818
   },
   {
-   "route": "MG → PI",
-   "orders": 32,
-   "promised": 30.0,
-   "actual": 13.5,
-   "p90_actual": 23.0,
-   "late_rate": 0.0313,
-   "bad_rate": 0.1563
-  },
-  {
    "route": "BA → PE",
    "orders": 32,
    "promised": 27.5,
@@ -1325,6 +1316,15 @@
    "bad_rate": 0.0313
   },
   {
+   "route": "MG → PI",
+   "orders": 32,
+   "promised": 30.0,
+   "actual": 13.5,
+   "p90_actual": 23.0,
+   "late_rate": 0.0313,
+   "bad_rate": 0.1563
+  },
+  {
    "route": "RJ → MS",
    "orders": 32,
    "promised": 25.5,
@@ -1332,6 +1332,15 @@
    "p90_actual": 23.0,
    "late_rate": 0.0938,
    "bad_rate": 0.0938
+  },
+  {
+   "route": "GO → GO",
+   "orders": 31,
+   "promised": 14.0,
+   "actual": 4.0,
+   "p90_actual": 9.0,
+   "late_rate": 0.0,
+   "bad_rate": 0.0645
   },
   {
    "route": "MA → MG",
@@ -1352,13 +1361,13 @@
    "bad_rate": 0.0323
   },
   {
-   "route": "GO → GO",
-   "orders": 31,
-   "promised": 14.0,
-   "actual": 4.0,
-   "p90_actual": 9.0,
+   "route": "DF → GO",
+   "orders": 30,
+   "promised": 21.0,
+   "actual": 8.5,
+   "p90_actual": 15.0,
    "late_rate": 0.0,
-   "bad_rate": 0.0645
+   "bad_rate": 0.0667
   },
   {
    "route": "MT → SP",
@@ -1367,15 +1376,6 @@
    "actual": 12.0,
    "p90_actual": 18.0,
    "late_rate": 0.0333,
-   "bad_rate": 0.0667
-  },
-  {
-   "route": "DF → GO",
-   "orders": 30,
-   "promised": 21.0,
-   "actual": 8.5,
-   "p90_actual": 15.0,
-   "late_rate": 0.0,
    "bad_rate": 0.0667
   }
  ],
@@ -1410,6 +1410,96 @@
     "new_late_rate": 0.0792,
     "march_late_rate": 0.1141,
     "policy": "rolling_14d_q93"
+   }
+  ],
+  "margins": [
+   {
+    "margin": 0,
+    "new_promise": 23.39,
+    "extra_days": 0.0,
+    "new_late_rate": 0.0783,
+    "late_avoided_share": 0.0,
+    "new_bad_reviews": 6558.0
+   },
+   {
+    "margin": 1,
+    "new_promise": 23.59,
+    "extra_days": 0.2,
+    "new_late_rate": 0.0762,
+    "late_avoided_share": 0.0268,
+    "new_bad_reviews": 6517.0
+   },
+   {
+    "margin": 2,
+    "new_promise": 23.78,
+    "extra_days": 0.39,
+    "new_late_rate": 0.0745,
+    "late_avoided_share": 0.0485,
+    "new_bad_reviews": 6483.0
+   },
+   {
+    "margin": 3,
+    "new_promise": 23.98,
+    "extra_days": 0.59,
+    "new_late_rate": 0.0727,
+    "late_avoided_share": 0.0715,
+    "new_bad_reviews": 6447.0
+   },
+   {
+    "margin": 4,
+    "new_promise": 24.17,
+    "extra_days": 0.78,
+    "new_late_rate": 0.071,
+    "late_avoided_share": 0.0932,
+    "new_bad_reviews": 6415.0
+   },
+   {
+    "margin": 5,
+    "new_promise": 24.37,
+    "extra_days": 0.98,
+    "new_late_rate": 0.0692,
+    "late_avoided_share": 0.1162,
+    "new_bad_reviews": 6376.0
+   },
+   {
+    "margin": 6,
+    "new_promise": 24.56,
+    "extra_days": 1.17,
+    "new_late_rate": 0.0673,
+    "late_avoided_share": 0.1405,
+    "new_bad_reviews": 6336.0
+   },
+   {
+    "margin": 7,
+    "new_promise": 24.76,
+    "extra_days": 1.37,
+    "new_late_rate": 0.0655,
+    "late_avoided_share": 0.1635,
+    "new_bad_reviews": 6295.0
+   },
+   {
+    "margin": 8,
+    "new_promise": 24.95,
+    "extra_days": 1.56,
+    "new_late_rate": 0.0639,
+    "late_avoided_share": 0.1839,
+    "new_bad_reviews": 6259.0
+   },
+   {
+    "margin": 9,
+    "new_promise": 25.14,
+    "extra_days": 1.75,
+    "new_late_rate": 0.0628,
+    "late_avoided_share": 0.198,
+    "new_bad_reviews": 6234.0
+   },
+   {
+    "margin": 10,
+    "new_promise": 25.34,
+    "extra_days": 1.95,
+    "new_late_rate": 0.0617,
+    "late_avoided_share": 0.212,
+    "new_bad_reviews": 6206.0
    }
   ]
  },
